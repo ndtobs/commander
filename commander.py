@@ -29,7 +29,7 @@ def ssh_session(device_type, ip, commandfile, username, password):
                             logg.write(output)
                             logg.write('\n\n')
                     # if -s not given at command line print output to screen
-                    if not args.silent:
+                    if args.out:
                         print('Command: ' + command)
                         print()
                         print(output)
@@ -46,7 +46,7 @@ def ssh_session(device_type, ip, commandfile, username, password):
                     logg.write('\n\n')
                     logg.write(output)
             # if -s not passed at command line output commands to screen
-            if not args.silent:
+            if args.out:
                 print('Configuration Changes:')
                 print()
                 print(output)
@@ -81,7 +81,7 @@ def main(hostfile):
                 pool.apply_async(ssh_session, args=(regx.group(2), regx.group(1), args.commandfile, username, password))
             else:
                 print()
-                print(('----- Skipping blank or malformated Host File entry "{}" {} -----').format(host, datetime.now().time()))
+                print('----- Skipping blank or malformated Host File entry "{}" {} -----'.format(host, datetime.now().time()))
                 print()
     pool.close()
     pool.join()
@@ -97,7 +97,7 @@ parser.add_argument('-hf', dest='hostfile', help='file containing hosts and type
 parser.add_argument('-cf', dest='commandfile', help='file containing commands one per line', required=True)
 parser.add_argument('-p', dest='procs', help='number of parallel processes default 10', type=int, default=10)
 parser.add_argument('-w', dest='write', help='write output to file per device', action='store_true')
-parser.add_argument('-s', dest='silent', help='do not print output to screen', action='store_true')
+parser.add_argument('-o', dest='out', help='output to screen', action='store_true')
 args = parser.parse_args()
 
 # run main function with passed arguments
