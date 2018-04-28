@@ -28,7 +28,7 @@ def ssh_session(device_type, ip, commandfile, username, password):
                             logg.write('\n\n')
                             logg.write(output)
                             logg.write('\n\n')
-                    # if -s not given at command line print output to screen
+                    # if -o passed at command line print output to screen
                     if args.out:
                         print('Command: ' + command)
                         print()
@@ -45,7 +45,7 @@ def ssh_session(device_type, ip, commandfile, username, password):
                     logg.write('Configuration Changes:')
                     logg.write('\n\n')
                     logg.write(output)
-            # if -s not passed at command line output commands to screen
+            # if -o not passed at command line print output to screen
             if args.out:
                 print('Configuration Changes:')
                 print()
